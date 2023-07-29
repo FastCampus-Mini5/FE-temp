@@ -15,10 +15,4 @@
 
 ## etc
 
-- utils/hooks/recoil등 추가적인 폴더들은 사용시에 생성하겠습니다.
-- Router.tsx에서 페이지 생성시 추가 및 서비스 초기 진입은 signin으로 설정했습니다. 로그인 구현시 signin 컴포넌트 내부에서 로그인 성공 유저는 signin진입불가 예외처리 해주세요.
-
-## dummy
-
-- json-server --watch src/data/dummy.json --routes src/data/routes.json --port 8001
-- 터미널 분할하셔서 json-server실행하시고 npm run dev에서 사진과 같이 axios에 주소 넣으시면 데이터 출력됩니다.
+- utils/hooks등 추가적인 폴더들은 사용시에 생성하겠습니다.
