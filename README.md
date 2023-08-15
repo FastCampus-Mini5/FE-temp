@@ -24,9 +24,11 @@ Deployment
 <img src="https://img.shields.io/badge/Netlify-00C7B7?style=flat&logo=netlify&logoColor=white"/>
 
   <div align=center><h1>💬 Communication</h1></div>
+  <div>
   <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white">
   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
   <img src="https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=Zoom&logoColor=white">
+  </div>
   <br>
 
   <div align=center><h1>👨‍👩‍👧‍👦 팀원 역할</h1></div>
@@ -37,6 +39,169 @@ Deployment
 |                                                          GitHub 팀장<br /> 초기 개발 세팅<br /> 프로필 수정, <br /> 로그인, 회원가입,<br /> Header, 비밀번호 재설정                                                       |                                                        관리자 페이지<br /> (연차/당직 승인 페이지, <br /> 연차/당직 신청 페이지, <br /> 관리자 - 전체 유저 / 회원가입 요청 리스트 페이지 )                                                          |                                                            연차/당직 사용자 페이지<br /> (홈페이지, 내 일정보기, 연차/당직 신청)
 
   <div align=center><h1>🖥 기능 소개</h1></div>
+
+  <div align=center><h3>🧙🏻‍♂️ 로그인, 회원가입 페이지 구성</h3></div> 
+  
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/86c4a636-6e00-4c20-803e-fd58b5d89e0f" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 로그인 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/b3c430d9-d7d6-45d8-bb85-078c41831639" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 회원가입 페이지
+  </div>
+</th>
+</table>
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/f6a1ca67-7338-4f16-bc4a-f417c4b1db2f" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 프로필 수정 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/1cfe99ae-f5c4-4481-a2f8-7d1a6aa1f7f1" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 비밀번호 재설정 페이지
+  </div>
+</th>
+</table>
+
+<br/>
+
+---
+<br/>
+
+</div>
+  <div align=center><h3>🧙🏻‍♀️ Side Bar - 네비게이션 페이지 구성</h3></div> 
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/1cd9afb1-0cfa-44a5-a1c3-27e9bbf15fc0" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 홈 페이지 
+  </div>
+</th>
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/52ea23ad-8f01-4996-8793-27a72b52a39e" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 연차 신청 페이지
+  </div>
+</th>
+</table>
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/088b632c-4b33-4f5f-ad35-71d621c1a62a" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 당직 신청 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/ffb2f0e5-ee09-498a-bbe1-56a38ab4b22b" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+ 내 일정보기 페이지
+  </div>
+</th>
+</table>
+<br/>
+
+---
+<br/>
+
+</div>
+  <div align=center><h3>🧙🏻 관리자 권한 페이지 구성</h3></div> 
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/d72d0d62-03e3-4d44-af5e-9accaf9a8d45" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+관리자 로그인 페이지
+  </div>
+</th>
+ 
+ <th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/6f9255bb-6f60-4b57-b6bd-47ac654e33d2" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+유저 리스트 페이지 
+  </div>
+</th>
+ </table>
+
+ <table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/8b676bef-7452-425e-9cdd-5cca4a977f57" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+연차 요청 리스트 페이지
+  </div>
+</th>
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/bd33acb8-cc8f-4bc2-a261-9cb2c26fc5a5" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+연차 리스트 페이지
+  </div>
+</th>
+</table>
+
+<table>
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/0e0df96a-8bbf-419b-90c6-1cd5896cffae" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+당직 요청 리스트 페이지
+  </div>
+</th>
+
+<th style={{width: "25%"}}>
+  <div style={{width: "50%"}}>
+    <img src="https://github.com/FastCampus-Mini5/backend_server/assets/111266513/04ea1474-2507-478e-8eb7-84e45147fd2c" style={{width: "50%", height: "50%", objectFit: "contain"}}/>
+  </div>
+  <div align="center">
+당직 리스트 페이지
+  </div>
+</th>
+</table>
+
+<br/>
+
+</div>
+
+
 
 **1️⃣ 유저/관리자 로그인 페이지**
 
