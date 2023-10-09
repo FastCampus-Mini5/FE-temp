@@ -2,54 +2,20 @@ import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { MyAnnualList, MyDutyList } from 'api/index'
 import { getMyTitleWithStatus } from '../custom/index'
+import { useCalendarData } from '@/hooks/useCalendarData'
 
 export const Schedule = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
   const calendarRef = useRef<FullCalendar | null>(null)
-  const [viewDrow, setViewDrow] = useState([
-    {
-      title: '',
-      start: '',
-      end: '',
-      status: '',
-      type: ''
-    }
-  ])
-
-  useEffect(() => {
-    MyAnnualList(CalDate.toString())
-      .then(data => {
-        const returnDatalist = data.data.response
-        const modifiedReturnDatalist = returnDatalist.map(item => ({
-          title: getMyTitleWithStatus(item),
-          start: new Date(item.startDate).toISOString(),
-          end: new Date(item.endDate).toISOString(),
-          type: 'ANNUAL'
-        }))
-        console.log(data)
-        setViewDrow(modifiedReturnDatalist)
-        return MyDutyList(CalDate.toString()) // MyDutyList 호출을 return 합니다.
-      })
-      .then(data => {
-        const returnDatalist = data.data.response
-        const modifiedReturnDatalist = returnDatalist.map(item => ({
-          ...item,
-          title: getMyTitleWithStatus(item),
-          date: new Date(item.dutyDate),
-          type: 'DUTY'
-        }))
-        setViewDrow(prevViewDrow => [
-          ...prevViewDrow,
-          ...modifiedReturnDatalist
-        ]) // 이전의 viewDrow state를 활용하여 업데이트합니다.
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error)
-      })
-  }, [CalDate])
+  const { viewDrow } = useCalendarData(
+    MyAnnualList(CalDate.toString()),
+    MyDutyList(CalDate.toString()),
+    getMyTitleWithStatus,
+    CalDate
+  )
 
   const eventContent = ({ event }) => {
     return (
