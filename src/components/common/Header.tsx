@@ -46,8 +46,8 @@ export const Header = () => {
     navigate('/')
   }
 
-  useEffect(() => {
-    ;async () => {
+  //진입시 유저정보 렌더링
+  useEffect(() => {(async () => {
       try {
         const res: InfoResponse = await getUserInfo()
         setUsername(res?.response?.username)
@@ -59,11 +59,12 @@ export const Header = () => {
         }
 
         setRemain(res?.response?.remainVacation)
+        console.log(res?.response?.remainVacation + '2222')
       } catch (error) {
         // 오류 처리
         console.error('데이터 가져오기 실패:', error)
       }
-    }
+    })()
   }, [username])
 
   return (

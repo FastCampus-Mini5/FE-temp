@@ -1,15 +1,13 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { AllDataList, AuualContainer, DutyContainer } from 'components/index'
-import {
-  MyAnnualList,
-  MyDutyList,
-  DeleteAnnualList,
-  DeleteDutyList
-} from 'api/index'
+import { AllDataList } from './index'
+import { DeleteAnnualList, DeleteDutyList } from 'api/index'
 import { useCallback, useEffect, useState } from 'react'
+import { MyAnnualList, MyDutyList } from 'api/index'
 import { IoReload } from 'react-icons/io5'
 import { ExCelbox } from '../Button/ExcelButton'
+import { AuualContainer } from 'components/index'
+import { DutyContainer } from './duty/dutyContainer'
 
 export const Home = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
@@ -22,11 +20,10 @@ export const Home = () => {
     navigate('/application')
   }
 
-  const searchData = () => {
+  const searchData = useCallback(() => {
     MyAnnualList(CalDate.toString())
       .then(data => {
         const returnDatalist = data.data.response
-        console.log(returnDatalist)
         setAnnualDataList(returnDatalist)
         return MyDutyList(CalDate.toString())
       })
@@ -37,51 +34,49 @@ export const Home = () => {
       .catch(error => {
         console.error('Error fetching data:', error)
       })
-  }
+  }, [CalDate])
 
   useEffect(() => {
     searchData()
   }, [CalDate])
 
   const extractDate = dateString => {
-    const date = dateString.split('T')[0]
-    return date
+    if (dateString) {
+      const date = dateString.split('T')[0]
+      return date
+    }
+    return ''
   }
 
-  const deleteButton = (type: string, id: string) => {
-    if (!window.confirm(`${type}를 취소 하시겠습니까?`)) {
-      alert(`취소되었습니다.`)
-      return false
-    }
-
-    try {
-      if (type == '연차') {
-        DeleteAnnualList(id).then(data => {
-          console.log(data.status)
-          if (data.status == 200) {
-            alert(`${type}가 취소되었습니다.`)
-            searchData()
-          } else {
-            alert(`취소가 실패했습니다.`)
-          }
-        })
-      } else {
-        DeleteDutyList(id).then(data => {
-          console.log(data.status)
-          if (data.status == 200) {
-            alert(`${type}가 취소되었습니다.`)
-            searchData()
-          } else {
-            alert(`취소가 실패했습니다.`)
-          }
-        })
+  const deleteButton = useCallback(
+    async (type: string, id: string) => {
+      if (!window.confirm(`${type}를 취소 하시겠습니까?`)) {
+        alert(`취소되었습니다.`)
+        return
       }
-    } catch (e) {
-      console.log(e)
-      alert(`${e} 문의주세요.`)
-    }
-    return
-  }
+
+      try {
+        let deleteFunction
+        if (type === '연차') {
+          deleteFunction = DeleteAnnualList
+        } else {
+          deleteFunction = DeleteDutyList
+        }
+
+        const response = await deleteFunction(id)
+        if (response.status === 200) {
+          alert(`${type}가 취소되었습니다.`)
+          searchData()
+        } else {
+          alert(`취소가 실패했습니다.`)
+        }
+      } catch (error) {
+        console.error(error)
+        alert(`이미 신청된 연차는 취소할수 없습니다.`)
+      }
+    },
+    [searchData]
+  )
 
   const datalist = useCallback(datalist => {
     const filterViewData = datalist.filter(item => {
@@ -159,6 +154,7 @@ const Boards = styled.div`
   gap: 50px;
   justify-content: space-between;
 `
+
 const CenterBarBox = styled.div`
   position: relative;
   top: 30px;

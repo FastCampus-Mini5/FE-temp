@@ -1,9 +1,8 @@
 import { styled } from 'styled-components'
 import { UpdateTexts, nameTexts, passwordTexts } from 'constants/index'
 import { UpdateInputForm, UpdateImageForm } from 'components/index'
-import { useState, useEffect, useContext } from 'react'
-import { InfoResponse } from 'components/index'
-import { getUserInfo, updateUserInfo } from 'api/index'
+import { useState } from 'react'
+import { updateUserInfo } from 'api/index'
 import { useNavigate } from 'react-router-dom'
 import { AxiosError } from 'axios'
 import { useRecoilValue } from 'recoil'
@@ -17,7 +16,6 @@ export const UpdateForm = () => {
   const [password, setPassword] = useState<string>('')
   const [verification, setVerification] = useState<string>('')
   const profileImage = useRecoilValue(imageState)
-
   const nameStates = [email, username]
   const passwordStates = [password, verification]
   const passwordFunctions = [setPassword, setVerification]
