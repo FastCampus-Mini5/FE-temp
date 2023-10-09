@@ -211,13 +211,13 @@ export const Apply = () => {
           </BarBox>
           <ButtonContainer>
             <AnnualButton
-              className={activeButton === 'ANNUAL' ? 'active' : ''}
+              isActive={activeButton === 'ANNUAL'}
               onClick={() => handleButtonClick('ANNUAL')}
               data-select="ANNUAL">
               {ApplyTexts.ApplyAnnual}
             </AnnualButton>
             <DutyButton
-              className={activeButton === 'DUTY' ? 'active' : ''}
+              isActive={activeButton === 'DUTY'}
               onClick={() => handleButtonClick('DUTY')}
               data-select="DUTY">
               {ApplyTexts.ApplyDuty}
@@ -323,7 +323,9 @@ const ButtonContainer = styled.div`
   float: right;
   margin-right: 200px;
 `
-const AnnualButton = styled.button`
+const AnnualButton = styled.button.attrs<{ isActive: boolean }>(props => ({
+  isActive: props.isActive || false
+}))`
   width: 125px;
   color: #ffff;
   border-radius: 10px;
@@ -332,11 +334,8 @@ const AnnualButton = styled.button`
   border: none;
   cursor: pointer;
   margin-top: 10px;
-
-  .active {
-    background-color: ${isActive => (isActive ? '#0C356A' : '#1a3ba5e2')};
-    margin-left: ${isActive => (isActive ? '-20px' : '-10px')};
-  }
+  background-color: ${props => (props.isActive ? '#0C356A' : '#1a3ba5e2')};
+  margin-left: ${props => (props.isActive ? '-20px' : '-10px')};
 `
 
 const DutyButton = styled(AnnualButton)``
