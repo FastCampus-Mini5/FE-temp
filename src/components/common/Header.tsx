@@ -23,7 +23,7 @@ export interface InfoResponse extends AxiosResponse {
 export const Header = () => {
   const [username, setUsername] = useState<string>('')
   const [profileImage, setProfileImage] = useRecoilState<string>(imageState)
-  const [remain, setRemain] = useRecoilState(remainState)
+  const [, setRemain] = useRecoilState(remainState)
 
   const navigate = useNavigate()
 
