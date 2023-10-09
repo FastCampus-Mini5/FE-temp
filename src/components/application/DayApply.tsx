@@ -6,6 +6,7 @@ import { AnnualModal, DuttyModal } from './index'
 import { useEffect, useState, useRef } from 'react'
 import { getTitleWithStatus } from '../custom/index'
 import { allAnnualList, allDutyList, UserInfoList } from 'api/index'
+import { Topimagesbox } from './index'
 
 interface DataItem {
   filter(arg0: (item: any) => any): any
@@ -25,7 +26,6 @@ export const Apply = () => {
   }
 
   const calendarRef = useRef<FullCalendar | null>(null)
-  const [selectedButton, setSelectedButton] = useState('ANNUAL')
   const [selectedModal, setSelectedModal] = useState<
     'ANNUAL_MODAL' | 'DUTY_MODAL' | null
   >(null)
@@ -33,6 +33,8 @@ export const Apply = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
   const [username, SetUserName] = useState('')
   const [data, setData] = useState<DataItem[]>([])
+  const [selectedButton, setSelectedButton] = useState('')
+  const [activeButton, setActiveButton] = useState('ANNUAL')
   const [viewDrow, setViewDrow] = useState([
     {
       email: '',
@@ -62,6 +64,7 @@ export const Apply = () => {
 
   const handleButtonClick = (button: 'ANNUAL' | 'DUTY') => {
     setSelectedButton(button)
+    setActiveButton(button)
   }
 
   const handleModalClick = (info: any) => {
@@ -195,6 +198,7 @@ export const Apply = () => {
   return (
     <ApplyWrapper>
       <ApplyTitle></ApplyTitle>
+      <Topimagesbox />
       <Rectangle>
         <ApplyContainer>
           <BarBox>
@@ -207,11 +211,13 @@ export const Apply = () => {
           </BarBox>
           <ButtonContainer>
             <AnnualButton
+              className={activeButton === 'ANNUAL' ? 'active' : ''}
               onClick={() => handleButtonClick('ANNUAL')}
               data-select="ANNUAL">
               {ApplyTexts.ApplyAnnual}
             </AnnualButton>
             <DutyButton
+              className={activeButton === 'DUTY' ? 'active' : ''}
               onClick={() => handleButtonClick('DUTY')}
               data-select="DUTY">
               {ApplyTexts.ApplyDuty}
@@ -319,13 +325,18 @@ const ButtonContainer = styled.div`
 `
 const AnnualButton = styled.button`
   width: 125px;
-  background-color: #1a3ba5e2;
   color: #ffff;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px;
   font-weight: 800;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
+
+  .active {
+    background-color: ${isActive => (isActive ? '#0C356A' : '#1a3ba5e2')};
+    margin-left: ${isActive => (isActive ? '-20px' : '-10px')};
+  }
 `
 
 const DutyButton = styled(AnnualButton)``
@@ -335,7 +346,6 @@ const CalendarContainer = styled.div`
   padding-bottom: 40px;
   background-color: #fff;
   position: absolute;
-  /* border: 2px solid #696ea6; */
   box-shadow: #50515985 1px 2px 7px 1px;
   border-radius: 10px;
 `
