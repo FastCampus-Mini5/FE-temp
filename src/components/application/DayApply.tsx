@@ -292,9 +292,10 @@ const ApplyContainer = styled.div`
 `
 const BarBox = styled.div`
   width: 140px;
-  margin-left: 800px;
+  float: right;
+  margin-right: 200px;
+  bottom: 50px;
   position: relative;
-  margin-bottom: 10px;
   font-weight: bold;
 `
 const ScheduleBarone = styled.div`
@@ -315,13 +316,13 @@ const ScheduleBartwo = styled(ScheduleBarone)`
 `
 
 const ButtonContainer = styled.div`
-  width: 250px;
-  bottom: 50px;
+  width: 110px;
   position: relative;
   display: flex;
-  gap: 30px;
-  float: right;
-  margin-right: 200px;
+  gap: 15px;
+  float: left;
+  margin-left: -100px;
+  flex-direction: column;
 `
 const AnnualButton = styled.button.attrs<{ isActive: boolean }>(props => ({
   isActive: props.isActive || false
