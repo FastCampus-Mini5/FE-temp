@@ -1,13 +1,14 @@
 import { styled } from 'styled-components'
 import { UpdateTexts } from 'constants/index'
-import { useRef, useContext } from 'react'
+import { useRef } from 'react'
 import { BaseRow, BaseCol } from 'components/index'
-import { ProfileContext } from 'contexts/index'
 import DefaultImage from 'assets/dafault.png'
+import { useRecoilState } from 'recoil'
+import { imageState } from '@/store/atoms'
 
 export const UpdateImageForm = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const { profileImage, setProfileImage } = useContext(ProfileContext)
+  const [profileImage, setProfileImage] = useRecoilState(imageState)
 
   const handleLoadImage = e => {
     if (!e.target.files?.length) {
