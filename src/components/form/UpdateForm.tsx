@@ -1,13 +1,13 @@
 import { styled } from 'styled-components'
 import { UpdateTexts, nameTexts, passwordTexts } from 'constants/index'
 import { UpdateInputForm, UpdateImageForm } from 'components/index'
-import { useState, useEffect, useContext } from 'react'
-import { InfoResponse } from 'components/index'
-import { getUserInfo, updateUserInfo } from 'api/index'
+import { useState } from 'react'
+import { updateUserInfo } from 'api/index'
 import { useNavigate } from 'react-router-dom'
-import { ProfileContext } from 'contexts/index'
-import DefaultImage from 'assets/dafault.png'
 import { AxiosError } from 'axios'
+import { useRecoilValue } from 'recoil'
+import { imageState } from '@/store/atoms'
+import { useUserInfoFetch } from '@/hooks/useUserInfoFetch'
 
 export const UpdateForm = () => {
   const navigate = useNavigate()
@@ -15,11 +15,13 @@ export const UpdateForm = () => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [verification, setVerification] = useState<string>('')
-  const { profileImage, setProfileImage } = useContext(ProfileContext)
-
+  const profileImage = useRecoilValue(imageState)
   const nameStates = [email, username]
   const passwordStates = [password, verification]
   const passwordFunctions = [setPassword, setVerification]
+
+  //진입시 유저정보 렌더링 hook함수 생성
+  useUserInfoFetch(setUsername, profileImage, '', setEmail)
 
   const handleCancel = () => {
     navigate('/home')
@@ -51,30 +53,12 @@ export const UpdateForm = () => {
     }
   }
 
-  //진입시 유저정보 렌더링
-  useEffect(() => {
-    const fetchData = async () => {
-      const res: InfoResponse = await getUserInfo()
-      setUsername(res?.response?.username)
-      setEmail(res?.response?.email)
-      if (res?.response?.profileImage === '/image/default.png') {
-        setProfileImage(DefaultImage)
-        return
-      }
-      setProfileImage(res?.response?.profileImage)
-    }
-    fetchData()
-  }, [])
-
   return (
     <>
       {/* SEPERATION => Update.tsx*/}
       <UpdateTitle>{UpdateTexts.update}</UpdateTitle>
       <ProfileContainer>
-        <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
-          <UpdateImageForm />
-        </ProfileContext.Provider>
-
+        <UpdateImageForm />
         <UpdateInputForm
           texts={nameTexts}
           value={nameStates}

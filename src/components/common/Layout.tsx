@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { GlobalStyles } from 'styles/index'
 import { Header } from 'components/index'
 import bg from 'assets/bgblue.png'
-import { ProfileContext } from 'contexts/index'
-import { useState } from 'react'
 
 export const Layout = () => {
   return (
@@ -19,14 +17,11 @@ export const Layout = () => {
 }
 
 export const HeaderLayout = () => {
-  const [profileImage, setProfileImage] = useState<string>('')
 
   return (
     <>
       <GlobalStyles />
-      <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
         <Header />
-      </ProfileContext.Provider>
       <Wrapper>
         <Container>
           <Outlet />

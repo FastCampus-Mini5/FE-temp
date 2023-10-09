@@ -2,11 +2,12 @@ import { styled } from 'styled-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Title from 'assets/service-title.png'
 import { links, headerText } from 'constants/index'
-import { useCallback, useEffect, useState, useContext } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getUserInfo } from 'api/index'
 import { AxiosResponse } from 'axios'
-import { ProfileContext } from 'contexts/index'
 import DefaultImage from 'assets/dafault.png'
+import { useRecoilState } from 'recoil'
+import { remainState, imageState } from '@/store/atoms'
 
 export interface InfoResponse extends AxiosResponse {
   response: {
@@ -21,7 +22,8 @@ export interface InfoResponse extends AxiosResponse {
 
 export const Header = () => {
   const [username, setUsername] = useState<string>('')
-  const { profileImage, setProfileImage } = useContext(ProfileContext)
+  const [profileImage, setProfileImage] = useRecoilState<string>(imageState)
+  const [, setRemain] = useRecoilState(remainState)
 
   const navigate = useNavigate()
 
@@ -45,25 +47,30 @@ export const Header = () => {
   }
 
   //진입시 유저정보 렌더링
-  useEffect(() => {
-    const fetchData = async () => {
-      const res: InfoResponse = await getUserInfo()
-      setUsername(res?.response?.username)
-      if (res?.response?.profileImage === '/image/default.png') {
-        setProfileImage(DefaultImage)
-        return
+  useEffect(() => {(async () => {
+      try {
+        const res: InfoResponse = await getUserInfo()
+        setUsername(res?.response?.username)
+
+        if (res?.response?.profileImage === '/image/default.png') {
+          setProfileImage(DefaultImage)
+        } else {
+          setProfileImage(res?.response?.profileImage)
+        }
+
+        setRemain(res?.response?.remainVacation)
+        console.log(res?.response?.remainVacation + '2222')
+      } catch (error) {
+        // 오류 처리
+        console.error('데이터 가져오기 실패:', error)
       }
-      setProfileImage(res?.response?.profileImage)
-      console.log(res)
-    }
-    fetchData()
+    })()
   }, [username])
 
   return (
     <>
       <Outermost>
         <WidthSettler>
-          {/* 컴포넌트 분리?? */}
           <LeftBox>
             <img
               src={Title}
@@ -71,22 +78,17 @@ export const Header = () => {
             />
             {searchLinks}
           </LeftBox>
-          {/* 컴포넌트 분리? */}
-          <ProfileContext.Provider value={{ profileImage, setProfileImage }}>
-            <RightBox imageurl={profileImage || ''}>
-              {/* USERINFO */}
-              <div
-                className="image"
-                onClick={() => {
-                  navigate('/profile')
-                }}></div>
-              <div className="info">
-                <div>{username}</div>
-                {/* 뒤로가기 예외처리 */}
-                <button onClick={signOut}>{headerText.signout}</button>
-              </div>
-            </RightBox>
-          </ProfileContext.Provider>
+          <RightBox imageurl={profileImage || ''}>
+            <div
+              className="image"
+              onClick={() => {
+                navigate('/profile')
+              }}></div>
+            <div className="info">
+              <div>{username}</div>
+              <button onClick={signOut}>{headerText.signout}</button>
+            </div>
+          </RightBox>
         </WidthSettler>
       </Outermost>
     </>
