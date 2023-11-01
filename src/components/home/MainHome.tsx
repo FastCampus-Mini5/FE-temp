@@ -8,6 +8,7 @@ import { IoReload } from 'react-icons/io5'
 import { ExCelbox } from '../Button/ExcelButton'
 import { AuualContainer } from 'components/index'
 import { DutyContainer } from './duty/dutyContainer'
+import { mainTexts, commonTexts } from 'constants/index'
 
 export const Home = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
@@ -51,13 +52,13 @@ export const Home = () => {
   const deleteButton = useCallback(
     async (type: string, id: string) => {
       if (!window.confirm(`${type}를 취소 하시겠습니까?`)) {
-        alert(`취소되었습니다.`)
+        alert(mainTexts.cancelText)
         return
       }
 
       try {
         let deleteFunction
-        if (type === '연차') {
+        if (type === 'commonTexts.annualText') {
           deleteFunction = DeleteAnnualList
         } else {
           deleteFunction = DeleteDutyList
@@ -68,11 +69,11 @@ export const Home = () => {
           alert(`${type}가 취소되었습니다.`)
           searchData()
         } else {
-          alert(`취소가 실패했습니다.`)
+          alert(mainTexts.failCancelText)
         }
       } catch (error) {
         console.error(error)
-        alert(`이미 신청된 연차는 취소할수 없습니다.`)
+        alert(mainTexts.areadyApply)
       }
     },
     [searchData]
@@ -108,7 +109,9 @@ export const Home = () => {
       </Boards>
       <CenterBarBox>
         <ApplyBox>
-          <HomeApply onClick={onChangeClick}>연차/당직 신청</HomeApply>
+          <HomeApply onClick={onChangeClick}>
+            {mainTexts.applyAnnualDuty}
+          </HomeApply>
           <IoReload
             onClick={onClickLoad}
             style={{
@@ -125,16 +128,16 @@ export const Home = () => {
           <ExCelbox />
           <BarBox>
             <ScheduleBarone>
-              <p>연차</p>
+              <p>{commonTexts.annualText}</p>
             </ScheduleBarone>
             <ScheduleBartwo>
-              <p>당직</p>
+              <p>{commonTexts.dutyText}</p>
             </ScheduleBartwo>
           </BarBox>
         </CenterBoxInner>
       </CenterBarBox>
       <CalendarBoard>
-        <AllDataList CalendarDate={setCalDate} />
+        <AllDataList />
       </CalendarBoard>
     </HomeContainer>
   )
