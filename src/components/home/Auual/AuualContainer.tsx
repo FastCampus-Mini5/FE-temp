@@ -3,6 +3,7 @@ import { convertStatusToText } from 'components/custom/index'
 import { remainState } from '@/store/atoms'
 import { useRecoilValue } from 'recoil'
 import { mainTexts } from '@/constants'
+import { StatusCommon } from '@/styles/index'
 
 interface Item {
   id: string
@@ -35,8 +36,12 @@ export const AuualContainer = ({
               <h2>
                 📌 {extractDate(item.startDate)} ~ {extractDate(item.endDate)}
               </h2>
-              <StatusBox>{convertStatusToText(item.status)}</StatusBox>
-              <CancelBox onClick={() => deleteButton('연차', item.id)}>
+              <StatusBox status={item.status}>
+                {convertStatusToText(item.status)}
+              </StatusBox>
+              <CancelBox
+                onClick={() => deleteButton('연차', item.id)}
+                status={item.status}>
                 {mainTexts.annualCancel}
               </CancelBox>
             </AuualList>
@@ -92,16 +97,8 @@ const AuualList = styled.div`
     padding-bottom: 2%;
   }
 `
-const StatusBox = styled.div`
-  width: 70px;
-  border-radius: 5px;
-  background-color: gray;
-  position: absolute;
-  right: 110px;
-  font-size: 12px;
-  padding: 8px;
-  padding-left: 13px;
-  color: #ffff;
+const StatusBox = styled.div<{ status: string }>`
+  ${StatusCommon}
 `
 const CancelBox = styled(StatusBox)`
   right: 20px;

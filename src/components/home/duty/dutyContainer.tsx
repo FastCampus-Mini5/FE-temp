@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { convertStatusToText } from 'components/custom/index'
 import { mainTexts } from '@/constants'
+import { StatusCommon } from '@/styles/index'
 
 export const DutyContainer = ({
   dutyDataList,
@@ -16,8 +17,12 @@ export const DutyContainer = ({
           {datalist(dutyDataList).map(el => (
             <DutyList key={el.id}>
               <h2>📌 {extractDate(el.dutyDate)}</h2>
-              <StatusBox>{convertStatusToText(el.status)}</StatusBox>
-              <CancelBox onClick={() => deleteButton('당직', el.id)}>
+              <StatusBox status={el.status}>
+                {convertStatusToText(el.status)}
+              </StatusBox>
+              <CancelBox
+                onClick={() => deleteButton('당직', el.id)}
+                status={el.status}>
                 {mainTexts.dutyCancel}
               </CancelBox>
             </DutyList>
@@ -71,16 +76,8 @@ const DutyList = styled.div`
     padding-bottom: 2%;
   }
 `
-const StatusBox = styled.div`
-  width: 70px;
-  border-radius: 5px;
-  background-color: gray;
-  position: absolute;
-  right: 110px;
-  font-size: 12px;
-  padding: 8px;
-  padding-left: 13px;
-  color: #ffff;
+const StatusBox = styled.div<{ status: string }>`
+  ${StatusCommon}
 `
 
 const CancelBox = styled(StatusBox)`
