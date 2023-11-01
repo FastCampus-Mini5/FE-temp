@@ -11,7 +11,7 @@ import { DutyContainer } from './duty/dutyContainer'
 import { mainTexts, commonTexts } from 'constants/index'
 
 export const Home = () => {
-  const [CalDate, setCalDate] = useState<number>(2023)
+  const [CalDate, ] = useState<number>(2023)
   const [annualDataList, setAnnualDataList] = useState([])
   const [dutyDataList, setDutyDataList] = useState([])
 

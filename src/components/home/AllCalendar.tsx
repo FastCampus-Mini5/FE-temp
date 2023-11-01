@@ -5,7 +5,7 @@ import { useCalendarData } from '@/hooks/useCalendarData'
 import { CalendarCommon } from 'components/common'
 
 export const AllDataList = () => {
-  const [CalDate, setCalDate] = useState<number>(2023)
+  const [CalDate, ] = useState<number>(2023)
 
   const { viewDrow } = useCalendarData(
     allAnnualList(CalDate.toString()),
