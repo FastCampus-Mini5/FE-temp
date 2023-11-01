@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom'
 export const SignInForm = () => {
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('testtest@gmail.com')
+  const [password, setPassword] = useState<string>('Test123456!')
 
   const inputRef = useRef<HTMLInputElement>(null)
 
