@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { convertStatusToText } from 'components/custom/index'
+import { mainTexts } from '@/constants'
 
 export const DutyContainer = ({
   dutyDataList,
@@ -10,14 +11,14 @@ export const DutyContainer = ({
   return (
     <>
       <DutyBoard>
-        <BoxText>당직 신청</BoxText>
+        <BoxText>{mainTexts.applyDutyTexts}</BoxText>
         <DutyListBox>
           {datalist(dutyDataList).map(el => (
             <DutyList key={el.id}>
               <h2>📌 {extractDate(el.dutyDate)}</h2>
               <StatusBox>{convertStatusToText(el.status)}</StatusBox>
               <CancelBox onClick={() => deleteButton('당직', el.id)}>
-                취소
+                {mainTexts.dutyCancel}
               </CancelBox>
             </DutyList>
           ))}

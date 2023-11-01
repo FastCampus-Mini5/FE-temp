@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { convertStatusToText } from 'components/custom/index'
 import { remainState } from '@/store/atoms'
 import { useRecoilValue } from 'recoil'
+import { mainTexts } from '@/constants'
 
 interface Item {
   id: string
@@ -22,8 +23,10 @@ export const AuualContainer = ({
     <>
       <AnnualBoard>
         <BoxText>
-          <span>연차 신청</span>
-          <span>남은연차:{remain} 개</span>
+          <span>{mainTexts.applyAnnualText}</span>
+          <span>
+            {mainTexts.remainText}:{remain} 개
+          </span>
         </BoxText>
 
         <AuualListBox>
@@ -34,7 +37,7 @@ export const AuualContainer = ({
               </h2>
               <StatusBox>{convertStatusToText(item.status)}</StatusBox>
               <CancelBox onClick={() => deleteButton('연차', item.id)}>
-                취소
+                {mainTexts.annualCancel}
               </CancelBox>
             </AuualList>
           ))}
