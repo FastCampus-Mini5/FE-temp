@@ -1,30 +1,23 @@
 import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin from '@fullcalendar/interaction'
 import { AnnualModal, DuttyModal } from './index'
 import { useEffect, useState, useRef } from 'react'
 import { getTitleWithStatus } from '../custom/index'
 import { allAnnualList, allDutyList, UserInfoList } from 'api/index'
 import { Topimagesbox } from './index'
+import { dayApplyTexts, commonTexts } from 'constants/index'
+import { ApplyCalendar } from 'components/common'
 
 interface DataItem {
-  filter(arg0: (item: any) => any): any
   title: string
-  start: any
-  end: any
-  type: string
+  start: Date
+  end: Date
+  type: 'ANNUAL' | 'Duty'
   username: string
-  date: any
+  date: Date
 }
 
 export const Apply = () => {
-  const ApplyTexts = {
-    Apply: '연차/당직 신청',
-    ApplyAnnual: '연차 신청',
-    ApplyDuty: '당직 신청'
-  }
-
   const calendarRef = useRef<FullCalendar | null>(null)
   const [selectedModal, setSelectedModal] = useState<
     'ANNUAL_MODAL' | 'DUTY_MODAL' | null
@@ -71,7 +64,7 @@ export const Apply = () => {
     let dateSelect = new Date(info.date)
     if (dateSelect.getDay() === 0 || dateSelect.getDay() === 6) {
       alert('토요일 또는 일요일은 선택할 수 없습니다.')
-      return
+      return false
     }
 
     dateSelect.setHours(9, 0, 0, 0)
@@ -95,11 +88,10 @@ export const Apply = () => {
         const dutyDate = item.date
         dutyDate.setHours(9, 0, 0, 0)
         if (dateSelect === dutyDate && item.username === username) {
-          console.log('c')
           return item
         }
       }
-      return
+      return false
     })
 
     console.log(dupuleData)
@@ -113,7 +105,7 @@ export const Apply = () => {
 
     if (dateSelect < today) {
       alert('오늘 날짜 이전은 선택할 수 없습니다.')
-      return
+      return false
     }
     viewDrow.find(item => {
       const start = new Date(item.start)
@@ -130,8 +122,7 @@ export const Apply = () => {
       selectedButton === 'ANNUAL' ? 'ANNUAL_MODAL' : 'DUTY_MODAL'
     )
     setSelectedDate(dateSelect)
-
-    return
+    return false
   }
 
   const CloseModal = () => {
@@ -183,17 +174,21 @@ export const Apply = () => {
             setData(modifiedReturnDatalist)
           })
           .catch(error => {
-            console.error('Error fetching data:', error)
+            console.error(error)
           })
       }
     } else {
-      console.log('Not Found Year')
+      console.log('년도를 찾을수 없습니다.')
     }
   }
 
   useEffect(() => {
     searchData()
   }, [selectedButton, CalDate])
+
+  useEffect(() => {
+    setActiveButton('DUTY')
+  }, [])
 
   return (
     <ApplyWrapper>
@@ -203,10 +198,10 @@ export const Apply = () => {
         <ApplyContainer>
           <BarBox>
             <ScheduleBarone>
-              <p>연차</p>
+              <p>{commonTexts.annualText}</p>
             </ScheduleBarone>
             <ScheduleBartwo>
-              <p>당직</p>
+              <p>{commonTexts.dutyText}</p>
             </ScheduleBartwo>
           </BarBox>
           <ButtonContainer>
@@ -214,32 +209,22 @@ export const Apply = () => {
               isActive={activeButton === 'ANNUAL'}
               onClick={() => handleButtonClick('ANNUAL')}
               data-select="ANNUAL">
-              {ApplyTexts.ApplyAnnual}
+              {dayApplyTexts.anuualSchedule}
             </AnnualButton>
             <DutyButton
               isActive={activeButton === 'DUTY'}
               onClick={() => handleButtonClick('DUTY')}
               data-select="DUTY">
-              {ApplyTexts.ApplyDuty}
+              {dayApplyTexts.dutySchedule}
             </DutyButton>
           </ButtonContainer>
-
-          <CalendarContainer>
-            <CalendarBox>
-              <FullCalendar
-                plugins={[dayGridPlugin, interactionPlugin]}
-                initialView="dayGridMonth"
-                dateClick={info => handleModalClick(info)}
-                eventContent={eventContent}
-                datesSet={handleDatesSet}
-                ref={calendarRef}
-                timeZone="Asia/Seoul"
-                events={viewDrow as unknown as EventInit[]}
-                dayMaxEvents={true}
-                locale={'ko'}
-              />
-            </CalendarBox>
-          </CalendarContainer>
+          <ApplyCalendar
+            handleModalClick={handleModalClick}
+            eventContent={eventContent}
+            handleDatesSet={handleDatesSet}
+            viewDrow={viewDrow}
+            calendarRef={calendarRef}
+          />
           {selectedModal === 'ANNUAL_MODAL' && (
             <AnnualModal
               close={CloseModal}
@@ -341,118 +326,6 @@ const AnnualButton = styled.button.attrs<{ isActive: boolean }>(props => ({
 
 const DutyButton = styled(AnnualButton)``
 
-const CalendarContainer = styled.div`
-  width: 86%;
-  padding-bottom: 40px;
-  background-color: #fff;
-  position: absolute;
-  box-shadow: #50515985 1px 2px 7px 1px;
-  border-radius: 10px;
-`
-
-const CalendarBox = styled.div`
-  width: 1100px;
-  position: relative;
-  margin: 0 auto;
-  top: 20px;
-  border-radius: 10px;
-  font-family: 'LINESeedKR-Bd';
-
-  .fc-theme-standard .fc-scrollgrid {
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-  }
-
-  .fc-header-toolbar {
-    width: 100%;
-    position: relative;
-    border-radius: 10px 10px 0px 0px;
-    padding-bottom: 10px;
-  }
-
-  .fc .fc-toolbar-title {
-    position: absolute;
-    margin: auto;
-    color: #374984;
-    max-width: 30%;
-    left: 40%;
-    top: 20px;
-  }
-
-  .fc-event-title fc-sticky {
-    padding: 2px;
-  }
-
-  .fc-h-event {
-    border: none;
-    background-color: #fff;
-  }
-
-  .fc .fc-button-primary {
-    border: none;
-    background-color: #1c3879;
-    position: relative;
-    top: 15px;
-    margin-right: 18px;
-  }
-
-  .fc-button-group {
-    position: absolute;
-    border: 0;
-    outline: 0;
-    width: 5rem;
-    left: 10%;
-  }
-
-  .fc .fc-daygrid-day-number {
-    position: relative;
-    right: 20px;
-    font-size: 17px;
-    font-weight: bold;
-    color: #374984;
-    margin-right: 10px;
-  }
-
-  .fc-col-header-cell-cushion {
-    color: #374984;
-    width: 90%;
-    height: 55px;
-    font-size: 18px;
-    padding: 10px;
-    font-weight: bold;
-  }
-
-  /* 요일 행 */
-  .fc .fc-scrollgrid-section table {
-    height: 11px;
-  }
-
-  table .fc-scrollgrid-sync-table {
-    width: 538px;
-    height: 700px;
-  }
-
-  /* border값 초기화 */
-  .fc-theme-standard th,
-  .fc-theme-standard td {
-    border: none;
-  }
-
-  .fc .fc-daygrid-day-top {
-    position: relative;
-    right: 90px;
-    top: 10px;
-  }
-
-  .fc .fc-daygrid-day-frame {
-    height: 120px;
-  }
-
-  .fc-event-time {
-    display: none;
-  }
-`
 const CustomEvent = styled.div`
   border: none;
   font-size: 15px;
