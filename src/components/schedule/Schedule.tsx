@@ -10,6 +10,7 @@ import { useCalendarData } from '@/hooks/useCalendarData'
 export const Schedule = () => {
   const [CalDate, setCalDate] = useState<number>(2023)
   const calendarRef = useRef<FullCalendar | null>(null)
+
   const { viewDrow } = useCalendarData(
     MyAnnualList(CalDate.toString()),
     MyDutyList(CalDate.toString()),

@@ -23,7 +23,6 @@ export const useUserInfoFetch = (
 
         fcRemain(res?.response?.remainVacation)
       } catch (error) {
-        // 오류 처리
         console.error('데이터 가져오기 실패:', error)
       }
     }
