@@ -1,17 +1,24 @@
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { AllDataList } from './index'
-import { DeleteAnnualList, DeleteDutyList } from 'api/index'
 import { useCallback, useEffect, useState } from 'react'
-import { MyAnnualList, MyDutyList } from 'api/index'
 import { IoReload } from 'react-icons/io5'
-import { ExCelbox } from '../Button/ExcelButton'
-import { AuualContainer } from 'components/index'
-import { DutyContainer } from './duty/dutyContainer'
-import { mainTexts, commonTexts } from 'constants/index'
+import {
+  MyAnnualList,
+  MyDutyList,
+  DeleteAnnualList,
+  DeleteDutyList
+} from 'api/index'
+import {
+  ExCelbox,
+  CommonBarButton,
+  AuualContainer,
+  DutyContainer,
+  AllCalendarList
+} from 'components/index'
+import { mainTexts } from 'src/index'
 
 export const Home = () => {
-  const [CalDate, ] = useState<number>(2023)
+  const [CalDate] = useState<number>(2023)
   const [annualDataList, setAnnualDataList] = useState([])
   const [dutyDataList, setDutyDataList] = useState([])
 
@@ -33,7 +40,7 @@ export const Home = () => {
         setDutyDataList(returnDatalist)
       })
       .catch(error => {
-        console.error('Error fetching data:', error)
+        console.error('Error', error)
       })
   }, [CalDate])
 
@@ -127,17 +134,12 @@ export const Home = () => {
         <CenterBoxInner>
           <ExCelbox />
           <BarBox>
-            <ScheduleBarone>
-              <p>{commonTexts.annualText}</p>
-            </ScheduleBarone>
-            <ScheduleBartwo>
-              <p>{commonTexts.dutyText}</p>
-            </ScheduleBartwo>
+          <CommonBarButton />
           </BarBox>
         </CenterBoxInner>
       </CenterBarBox>
       <CalendarBoard>
-        <AllDataList />
+        <AllCalendarList />
       </CalendarBoard>
     </HomeContainer>
   )
@@ -191,22 +193,6 @@ const BarBox = styled.div`
   width: 140px;
   margin-left: 200px;
   margin-top: 12px;
-`
-const ScheduleBarone = styled.div`
-  width: 100px;
-  height: 15px;
-  border-radius: 30px;
-  background-color: #4a42e4d4;
-  position: relative;
-
-  p {
-    width: 30px;
-    margin-left: 110px;
-  }
-`
-const ScheduleBartwo = styled(ScheduleBarone)`
-  background-color: #8696fe;
-  margin-top: 10px;
 `
 
 const CalendarBoard = styled.div`
