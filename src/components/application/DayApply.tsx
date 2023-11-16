@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
 import { useEffect, useState, useRef } from 'react'
-import { dayApplyTexts, commonTexts, CustomEvent } from 'src/index'
+import { dayApplyTexts, CustomEvent } from 'src/index'
 import { AnnualModal, DuttyModal, Topimagesbox } from './index'
 import {
   getTitleWithStatus,
