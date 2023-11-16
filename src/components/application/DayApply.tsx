@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import FullCalendar from '@fullcalendar/react'
-import { AnnualModal, DuttyModal } from './index'
 import { useEffect, useState, useRef } from 'react'
-import { getTitleWithStatus } from '../custom/index'
+import { dayApplyTexts, CustomEvent } from 'src/index'
+import { AnnualModal, DuttyModal, Topimagesbox } from './index'
+import {
+  getTitleWithStatus,
+  ApplyCalendar,
+  CommonBarButton
+} from 'components/index'
 import { allAnnualList, allDutyList, UserInfoList } from 'api/index'
-import { Topimagesbox } from './index'
-import { dayApplyTexts, commonTexts } from 'constants/index'
-import { ApplyCalendar } from 'components/common'
 
 interface DataItem {
   title: string
@@ -197,12 +199,7 @@ export const Apply = () => {
       <Rectangle>
         <ApplyContainer>
           <BarBox>
-            <ScheduleBarone>
-              <p>{commonTexts.annualText}</p>
-            </ScheduleBarone>
-            <ScheduleBartwo>
-              <p>{commonTexts.dutyText}</p>
-            </ScheduleBartwo>
+            <CommonBarButton />
           </BarBox>
           <ButtonContainer>
             <AnnualButton
@@ -283,22 +280,6 @@ const BarBox = styled.div`
   position: relative;
   font-weight: bold;
 `
-const ScheduleBarone = styled.div`
-  width: 100px;
-  height: 15px;
-  border-radius: 30px;
-  background-color: #4a42e4d4;
-  position: relative;
-
-  p {
-    width: 50px;
-    margin-left: 110px;
-  }
-`
-const ScheduleBartwo = styled(ScheduleBarone)`
-  background-color: #8696fe;
-  margin-top: 10px;
-`
 
 const ButtonContainer = styled.div`
   width: 110px;
@@ -325,15 +306,3 @@ const AnnualButton = styled.button.attrs<{ isActive: boolean }>(props => ({
 `
 
 const DutyButton = styled(AnnualButton)``
-
-const CustomEvent = styled.div`
-  border: none;
-  font-size: 15px;
-  margin-top: 10px;
-  width: 100%;
-  padding: 3px;
-  border-radius: 3px;
-  color: #ffff;
-  background-color: ${({ title }) =>
-    title === 'ANNUAL' ? '#4a42e4d4' : '#8696FE'};
-`

@@ -1,7 +1,12 @@
 import styled from 'styled-components'
-import { convertStatusToText } from 'components/custom/index'
-import { mainTexts } from '@/constants'
-import { StatusCommon } from '@/styles/index'
+import { convertStatusToText } from 'components/index'
+import { StatusBox, CancelBox, mainTexts } from 'src/index'
+
+type Item = {
+  id: number
+  dutyDate: string
+  status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED'
+}
 
 export const DutyContainer = ({
   dutyDataList,
@@ -14,7 +19,7 @@ export const DutyContainer = ({
       <DutyBoard>
         <BoxText>{mainTexts.applyDutyTexts}</BoxText>
         <DutyListBox>
-          {datalist(dutyDataList).map(el => (
+          {datalist(dutyDataList).map((el: Item) => (
             <DutyList key={el.id}>
               <h2>📌 {extractDate(el.dutyDate)}</h2>
               <StatusBox status={el.status}>
@@ -75,14 +80,4 @@ const DutyList = styled.div`
     padding: 7px;
     padding-bottom: 2%;
   }
-`
-const StatusBox = styled.div<{ status: string }>`
-  ${StatusCommon}
-`
-
-const CancelBox = styled(StatusBox)`
-  right: 20px;
-  background-color: #212a3e;
-  padding-left: 25px;
-  cursor: pointer;
 `

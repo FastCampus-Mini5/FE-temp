@@ -47,7 +47,8 @@ export const Header = () => {
   }
 
   //진입시 유저정보 렌더링
-  useEffect(() => {(async () => {
+  useEffect(() => {
+    ;(async () => {
       try {
         const res: InfoResponse = await getUserInfo()
         setUsername(res?.response?.username)
@@ -59,10 +60,9 @@ export const Header = () => {
         }
 
         setRemain(res?.response?.remainVacation)
-        console.log(res?.response?.remainVacation + '2222')
       } catch (error) {
         // 오류 처리
-        console.error('데이터 가져오기 실패:', error)
+        console.error('Error', error)
       }
     })()
   }, [username])
@@ -97,7 +97,7 @@ export const Header = () => {
 
 //가장 바깥 흰 배경 바탕 레이아웃
 const Outermost = styled.div`
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.white};
   display: flex;
   justify-content: center;
   align-items: center;
