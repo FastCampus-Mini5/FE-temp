@@ -3,7 +3,7 @@ import { convertStatusToText } from 'components/custom/index'
 import { remainState } from '@/store/atoms'
 import { useRecoilValue } from 'recoil'
 import { mainTexts } from '@/constants'
-import { StatusCommon } from '@/styles/index'
+import { StatusBox, CancelBox } from '@/styles'
 
 interface Item {
   id: string
@@ -96,13 +96,4 @@ const AuualList = styled.div`
     padding: 7px;
     padding-bottom: 2%;
   }
-`
-const StatusBox = styled.div<{ status: string }>`
-  ${StatusCommon}
-`
-const CancelBox = styled(StatusBox)`
-  right: 20px;
-  background-color: #212a3e;
-  padding-left: 25px;
-  cursor: pointer;
 `
