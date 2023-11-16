@@ -4,8 +4,8 @@ import { getTitleWithStatus } from '../custom/index'
 import { useCalendarData } from '@/hooks/useCalendarData'
 import { CalendarCommon } from 'components/common'
 
-export const AllDataList = () => {
-  const [CalDate, ] = useState<number>(2023)
+export const AllCalendarList = () => {
+  const [CalDate] = useState<number>(2023)
 
   const { viewDrow } = useCalendarData(
     allAnnualList(CalDate.toString()),
