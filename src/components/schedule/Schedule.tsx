@@ -18,6 +18,7 @@ export const Schedule = () => {
     CalDate
   )
 
+  // fullcalendar 에서 이벤트를 나타내는 권장 방식.
   const eventContent = ({ event }) => {
     return (
       <CustomEvent title={event._def.extendedProps.type}>
@@ -38,41 +39,39 @@ export const Schedule = () => {
   }
 
   return (
-    <Outermost>
-      <Rectangle>
-        <BarBox>
-          <CommonBarButton />
-        </BarBox>
-        <CalendarContainer>
-          <CalendarBox>
-            <FullCalendar
-              plugins={[dayGridPlugin, interactionPlugin]}
-              initialView="dayGridMonth"
-              events={viewDrow as unknown as EventInit[]}
-              timeZone="Asia/Seoul"
-              eventContent={eventContent}
-              datesSet={handleDatesSet}
-              ref={calendarRef}
-              dayMaxEvents={true}
-              locale={'ko'}
-            />
-          </CalendarBox>
-        </CalendarContainer>
-      </Rectangle>
-    </Outermost>
+    <Rectangle>
+      <BarBox>
+        <CommonBarButton />
+      </BarBox>
+      <CalendarContainer>
+        <CalendarBox>
+          <FullCalendar
+            plugins={[dayGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            events={viewDrow as unknown as EventInit[]}
+            timeZone="Asia/Seoul"
+            eventContent={eventContent}
+            datesSet={handleDatesSet}
+            ref={calendarRef}
+            dayMaxEvents={true}
+            locale={'ko'}
+          />
+        </CalendarBox>
+      </CalendarContainer>
+    </Rectangle>
   )
 }
 
 const Rectangle = styled.div`
   width: 1060px;
-  height: 600px;
+  height: 950px;
   border-radius: 10px;
   margin: 24px 0;
 `
 const CalendarContainer = styled.div`
   width: 100%;
-  padding-bottom: 40px;
-  background-color: #ffff;
+  padding-bottom: 50px;
+  background-color: ${props => props.theme.colors.white};
   position: relative;
   margin: auto;
   top: 10px;
@@ -84,9 +83,5 @@ const BarBox = styled.div`
   position: relative;
   margin-left: 800px;
   margin-top: 12px;
-  background-color: red;
-`
-const Outermost = styled.div`
-  display: flex;
-  flex-direction: column;
+  font-weight: 600;
 `
