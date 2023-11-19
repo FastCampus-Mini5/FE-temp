@@ -72,7 +72,6 @@ export const Apply = () => {
     dateSelect.setHours(9, 0, 0, 0)
 
     const dupuleData = data.filter((item: DataItem) => {
-      console.log(item)
 
       if (item.type === 'ANNUAL') {
         const startDay = item.start
@@ -294,7 +293,7 @@ const AnnualButton = styled.button.attrs<{ isActive: boolean }>(props => ({
   isActive: props.isActive || false
 }))`
   width: 125px;
-  color: #ffff;
+  color: ${props => props.theme.colors.white};
   border-radius: 10px;
   padding: 20px;
   font-weight: 800;
