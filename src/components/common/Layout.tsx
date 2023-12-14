@@ -9,7 +9,10 @@ export const Layout = () => {
     <>
       <GlobalStyles />
       <Outer>
-        <img src={bg} />
+        <img
+          src={bg}
+          className="background-image"
+        />
         <Outlet />
       </Outer>
     </>
@@ -17,11 +20,10 @@ export const Layout = () => {
 }
 
 export const HeaderLayout = () => {
-
   return (
     <>
       <GlobalStyles />
-        <Header />
+      <Header />
       <Wrapper>
         <Container>
           <Outlet />
@@ -43,7 +45,7 @@ const Container = styled.div`
   width: 1060px;
 `
 const Outer = styled.div`
-  img {
+  .background-image {
     width: 100%;
     height: 100vh;
   }
